@@ -1,5 +1,6 @@
 import React from 'react';
 import 'boxicons'
+import {default as api} from '../store/apiSlice'
 
 
 const object = [
@@ -20,11 +21,30 @@ const object = [
 
 
 const List = () => {
+    const { data, isFetching, isSuccess, isError } = api.useGetLabelsQuery();
+    const [deleteTransaction] = api.useDeleteTransactionMutation()
+    const handlerClick = (e) => {
+        console.log(e.target.dataset.id);
+        if (!e.target.dataset.id) return 0;
+        deleteTransaction({ _id: e.target.dataset.id })
+    }
+    let History;
+    // console.log(data);
+    if(isFetching){
+        History= <div>Data is Fetching</div>
+    }else if(isSuccess){
+        History = data.map((v, i) => <Transaction key={i} category={v} handler={handlerClick}></Transaction>)
+    }else if(isError){
+        History = <div>Error</div>
+    }
+
+    
+
     return (
         <div className='py-4 flex flex-col gap-3'>
             <h1 className='text-2xl font-bold'>History</h1>
             {
-                object.map((v, i)=><Transaction category={v}></Transaction>)
+                History
             }
             
 
@@ -33,11 +53,11 @@ const List = () => {
 };
 
 
-const Transaction = ({category})=>{
+const Transaction = ({category, handler})=>{
     if(!category)return null;
     return(
         <div className='item flex justify-center bg-slate-200 rounded-r-md' style={{borderRight:`10px solid ${category.color?? 'red'}`}}>
-            <button className='px-3'><box-icon size="18px" color={category.color ?? 'red'} name='trash'></box-icon></button>
+            <button onClick={handler} className='px-3'><box-icon data-id={category._id} size="18px" color={category.color ?? 'red'} name='trash'></box-icon></button>
             <span className=' block w-full'>{category.name?? ''}</span>
             
         </div>

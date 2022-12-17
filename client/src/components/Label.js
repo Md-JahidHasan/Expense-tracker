@@ -1,33 +1,25 @@
 import React from 'react';
+import {default as api} from '../store/apiSlice'
+import { getLabels, getSum } from './Helper/Helper';
 
-const object =[
-    {
-        type:'Savings',
-        color: '#f9c74f',
-        value:40
-    },
-    {
-        type:'Investment',
-        color: '#f0175f',
-        value:10
-    },
-    {
-        type:'Expense',
-        color: '#9d4edd',
-        value:30
-    }
-]
+
 const Label = () => {
+    const { data, isFetching, isSuccess, isError } = api.useGetLabelsQuery();
+    console.log(data);
+    let Transaction;
+    if(isFetching){
+        Transaction= <div>Data is Fetching</div>
+    }else if(isSuccess){
+        console.log(getLabels(data, 'type'));
+        Transaction = getLabels(data, 'type').map((v, i) => <LabelComponent key={i} data={v}></LabelComponent>)
+    }else if(isError){
+        Transaction = <div>Error</div>
+    }
+    // console.log(api.useGetLabelsQuery() );
     return (
-        <div>
-            {
-                object.map((v, i)=><LabelComponent
-                key={i}
-                data={v}
-                ></LabelComponent>)
-            }
-            
-        </div>
+        <>
+            {Transaction}
+        </>
     );
 };
 
@@ -38,7 +30,7 @@ const LabelComponent = ({data}) =>{
                 <div className='w-2 h-2 py-3 rounded' style={{ background: data.color ?? '#f9c74f' }}></div>
                 <h3>{data.type?? ''}</h3>
             </div>
-            <div className='font-bold'>{data.value?? 0}%</div>
+            <div className='font-bold'>{Math.round(data.parcent)?? 0}%</div>
         </div>
     )
 }

@@ -2,13 +2,14 @@ const model = require('../models/model')
 
 // Post: http://localhost:8080/api/categories
 const create_Categories = async(req, res)=>{
-    const Create = new model.Categories({
+    const create = new model.Categories({
         type:"Investment",
         color:'#1F5C'
     })
-    await Create.save(function(err){
-        if(!err) return res.json(Create);
-        return res.status(400).json({message:`Error while creating categories ${err}`})
+    create.save(function (err) {
+        if (!err)
+            return res.json(create);
+        return res.status(400).json({ message: `Error while creating categories ${err}` });
     })
 }
 
@@ -20,39 +21,39 @@ const get_categories = async(req, res)=>{
 }
 
 
-// Post: http://localhost:8080/api/transection
-const create_transection = async(req, res)=>{
+// Post: http://localhost:8080/api/transaction
+const create_transaction = async(req, res)=>{
     const {name, type, amount} = req.body;
-    const create = await new model.Transection({
+    const create = await new model.Transaction({
         name,
         type,
         amount
     })
     await create.save(function(err){
         if(!err) return res.json(create);
-        return res.status(400).json({message:`Error while creating transection ${err}`})
+        return res.status(400).json({message:`Error while creating transaction ${err}`})
     })
 }
 
-// Get: http://localhost:8080/api/transection
-const get_transection = async(req, res)=>{
-    const data = await model.Transection.find({})
+// Get: http://localhost:8080/api/transaction
+const get_transaction = async(req, res)=>{
+    const data = await model.Transaction.find({})
     res.json(data)
 }
 
-// Get: http://localhost:8080/api/transection
-const delete_transection = async(req, res)=>{
+// Delete: http://localhost:8080/api/transaction
+const delete_transaction = async(req, res)=>{
     if(!req.body) return res.status(400).json({message:`Req body not found`})
-    await model.Transection.deleteOne(req.body, function(err){
+    await model.Transaction.deleteOne(req.body, function(err){
         if(!err) res.json(`Record Deleted !`)
     }).clone().catch(function(err){
-        res.json("Err while deleting transection record")
+        res.json("Err while deleting transaction record")
     })
 }
 
-// Get: http://localhost:8080/api/label
+// Get: http://localhost:8080/api/labels
 const get_Label = async(req, res)=>{
-    model.Transection.aggregate([
+    await model.Transaction.aggregate([
         {
             $lookup:{
                 from:'categories',
@@ -65,6 +66,7 @@ const get_Label = async(req, res)=>{
             $unwind: "$categories_info"
         }
     ]).then(result=>{
+        console.log(result);
         const data = result.map(v => Object.assign({}, { _id: v._id, name: v.name, type: v.type, amount: v.amount, color: v.categories_info['color']}))
         res.json(data)
     }).catch(err=>{
@@ -76,8 +78,8 @@ const get_Label = async(req, res)=>{
 module.exports = {
     create_Categories,
     get_categories,
-    create_transection,
-    get_transection,
-    delete_transection,
+    create_transaction,
+    get_transaction,
+    delete_transaction,
     get_Label
     };

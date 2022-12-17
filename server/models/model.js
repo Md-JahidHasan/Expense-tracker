@@ -8,8 +8,8 @@ const categories_model = new Schema({
 })
 
 
-// Transection field=>['name', 'type', 'color', 'date']
-const transection_model = new Schema({
+// Transaction field=>['name', 'type', 'color', 'date']
+const transaction_model = new Schema({
     name:{type:String, default:'Anonymus'},
     type:{type:String, default:'Investment'},
     amount:{type:Number},
@@ -17,10 +17,10 @@ const transection_model = new Schema({
 })
 
 const Categories = mongoose.model('categories', categories_model);
-const Transection = mongoose.model('transection', transection_model);
+const Transaction = mongoose.model('transaction' , transaction_model);
 
-exports.default = Transection;
+exports.default = Transaction;
 module.exports = {
-    Transection,
+    Transaction,
     Categories
 }

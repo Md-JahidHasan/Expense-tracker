@@ -34,5 +34,5 @@ padding: 0;
   margin-right: auto;
 }
 .form-input{
-  @apply w-full py-2 mt-2 border-gray-400 bg-white rounded focus:outline-none focus:ring-indigo-600 p-2
+  @apply w-full py-3 mt-2 border-gray-800 bg-white rounded focus:outline-none focus:ring-indigo-600 p-2
 }

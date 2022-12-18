@@ -38,13 +38,13 @@ export const chart_data = (transaction, custom)=>{
                 label: 'My First Dataset',
                 data: dataValue,
                 backgroundColor:bg,
-                hoverOffset: 4,
-                borderRadius: 30,
+                hoverOffset: 5,
+                borderRadius: 10,
                 spacing: 10
             }]
         },
         options: {
-            cutout: 115
+            cutout: 100
         }
     }
     return custom ?? config

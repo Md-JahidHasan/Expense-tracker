@@ -56,7 +56,7 @@ const List = () => {
 const Transaction = ({category, handler})=>{
     if(!category)return null;
     return(
-        <div className='item flex justify-center bg-slate-200 rounded-r-md' style={{borderRight:`10px solid ${category.color?? 'red'}`}}>
+        <div className='item flex justify-center bg-slate-200 rounded-r-md p-2' style={{borderRight:`10px solid ${category.color?? 'red'}`}}>
             <button onClick={handler} className='px-3'><box-icon data-id={category._id} size="18px" color={category.color ?? 'red'} name='trash'></box-icon></button>
             <span className=' block w-full'>{category.name?? ''}</span>
             

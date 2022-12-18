@@ -1,6 +1,6 @@
 const model = require('../models/model')
 
-// Post: http://localhost:8080/api/categories
+// Post: https://expensetracker-6558.onrender.com/api/categories
 const create_Categories = async(req, res)=>{
     const create = new model.Categories({
         type:"Investment",
@@ -13,7 +13,7 @@ const create_Categories = async(req, res)=>{
     })
 }
 
-// Get: http://localhost:8080/api/categories
+// Get: https://expensetracker-6558.onrender.com/api/categories
 const get_categories = async(req, res)=>{
     let data = await model.Categories.find({});
     const filter = await data.map(v=>Object.assign({}, {type:v.type, color:v.color}))
@@ -21,7 +21,7 @@ const get_categories = async(req, res)=>{
 }
 
 
-// Post: http://localhost:8080/api/transaction
+// Post: https://expensetracker-6558.onrender.com/api/transaction
 const create_transaction = async(req, res)=>{
     const {name, type, amount} = req.body;
     const create = await new model.Transaction({
@@ -35,13 +35,13 @@ const create_transaction = async(req, res)=>{
     })
 }
 
-// Get: http://localhost:8080/api/transaction
+// Get: https://expensetracker-6558.onrender.com/api/transaction
 const get_transaction = async(req, res)=>{
     const data = await model.Transaction.find({})
     res.json(data)
 }
 
-// Delete: http://localhost:8080/api/transaction
+// Delete: https://expensetracker-6558.onrender.com/api/transaction
 const delete_transaction = async(req, res)=>{
     if(!req.body) return res.status(400).json({message:`Req body not found`})
     await model.Transaction.deleteOne(req.body, function(err){
@@ -51,7 +51,7 @@ const delete_transaction = async(req, res)=>{
     })
 }
 
-// Get: http://localhost:8080/api/labels
+// Get: https://expensetracker-6558.onrender.com/api/labels
 const get_Label = async(req, res)=>{
     await model.Transaction.aggregate([
         {

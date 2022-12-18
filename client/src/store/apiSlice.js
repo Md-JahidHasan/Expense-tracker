@@ -1,18 +1,18 @@
 import { createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 
 export const apiSlice = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl:'http://localhost:8080'}),
+    baseQuery: fetchBaseQuery({ baseUrl:'https://expensetracker-6558.onrender.com'}),
     endpoints: (builder)=>({
         // get Categories
         getCategories: builder.query({
-            // http://localhost:8080/api/categories
+            // https://expensetracker-6558.onrender.com/api/categories
             query:()=>'/api/categories',
             providesTags:['categories']
         }),
 
         // get Label
         getLabels: builder.query({
-            // http://localhost:8080/api/labels
+            // https://expensetracker-6558.onrender.com/api/labels
             query:()=>'/api/labels',
             providesTags:['transaction' ]
         }),
@@ -20,7 +20,7 @@ export const apiSlice = createApi({
         // add new transaction
         addTransaction: builder.mutation({
             query: (initialTransaction)=>({
-                // http://localhost:8080/api/transaction
+                // https://expensetracker-6558.onrender.com/api/transaction
                 url:'/api/transaction' ,
                 method:'POST',
                 body:initialTransaction
@@ -31,7 +31,7 @@ export const apiSlice = createApi({
         // record Delete
         deleteTransaction: builder.mutation({
             query:(recordDlt)=>({
-                // http://localhost:8080/api/transaction
+                // https://expensetracker-6558.onrender.com/api/transaction
                 url:'/api/transaction' ,
                 method:'DELETE',
                 body:recordDlt

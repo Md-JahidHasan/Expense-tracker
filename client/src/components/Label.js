@@ -8,12 +8,12 @@ const Label = () => {
     console.log(data);
     let Transaction;
     if(isFetching){
-        Transaction= <div>Data is Fetching</div>
+        Transaction= <div className='m-4 animate-pulse text-green-900'>Data is Fetching</div>
     }else if(isSuccess){
         console.log(getLabels(data, 'type'));
         Transaction = getLabels(data, 'type').map((v, i) => <LabelComponent key={i} data={v}></LabelComponent>)
     }else if(isError){
-        Transaction = <div>Error</div>
+        Transaction = <div className='m-2 text-red-700'>Error</div>
     }
     // console.log(api.useGetLabelsQuery() );
     return (

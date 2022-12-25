@@ -17,7 +17,7 @@ const Graph = () => {
 
     let GraphData;
     if (isFetching) {
-        GraphData = <div>Data is Fetching</div>
+        GraphData = <div className='w-40 h-40 rounded-full border-dashed border-8 border-green-400 animate-spin  m-8'></div>
     } else if (isSuccess) {
         
         GraphData = <Doughnut {...chart_data(data)}></Doughnut>
